@@ -34,22 +34,22 @@ public class CarroController {
 		return ResponseEntity.ok(carroService.listAll());
 	}
 	
-	@GetMapping("/{nome}")
+	@GetMapping("/nome/{nome}")
 	public ResponseEntity<List<Carro>> findCarroByName(@PathVariable String nome){
 		return ResponseEntity.ok(carroService.findByNome(nome));
 	}
 	
-	@GetMapping("/{modelo}")
+	@GetMapping("/modelo/{modelo}")
 	public ResponseEntity<List<Carro>> findCarroByModelo(@PathVariable String modelo){
 		return ResponseEntity.ok(carroService.findByModelo(modelo));
 	}
 	
-	@GetMapping("/{marca}")
+	@GetMapping("/marca/{marca}")
 	public ResponseEntity<List<Carro>> findCarroByMarca(@PathVariable String marca){
 		return ResponseEntity.ok(carroService.findByMarca(marca));
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping("/id/{id}")
 	public ResponseEntity<Carro> findCarroById(@PathVariable Long id){
 		return ResponseEntity.ok(carroService.findById(id));
 	}
@@ -65,7 +65,7 @@ public class CarroController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> deleteCarro(Long id){
+	public ResponseEntity<Void> deleteCarro(@PathVariable Long id){
 		carroService.delete(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

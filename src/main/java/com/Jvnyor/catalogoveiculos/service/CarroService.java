@@ -40,7 +40,7 @@ public class CarroService {
 		carroSaved.setMarca(carroDTO.getMarca());
 		carroSaved.setModelo(carroDTO.getModelo());
 		carroSaved.setFoto(carroDTO.getFoto());
-		return carroSaved;
+		return carroRepository.save(carroSaved);
 	}
 	
 	public void delete(Long id) {
