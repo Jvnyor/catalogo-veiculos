@@ -1,8 +1,8 @@
 package com.Jvnyor.catalogoveiculos.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,7 +19,7 @@ import com.Jvnyor.catalogoveiculos.model.CarroDTO;
 import com.Jvnyor.catalogoveiculos.service.CarroService;
 
 @RestController
-@RequestMapping("/carros")
+@RequestMapping("/api/carros")
 public class CarroController {
 
 	private CarroService carroService;
@@ -30,26 +30,11 @@ public class CarroController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<Carro>> listAllCarros(){
-		return ResponseEntity.ok(carroService.listAll());
+	public ResponseEntity<Page<Carro>> listAllCarros(Pageable pageable){
+		return ResponseEntity.ok(carroService.listAll(pageable));
 	}
 	
-	@GetMapping("/nome/{nome}")
-	public ResponseEntity<List<Carro>> findCarroByName(@PathVariable String nome){
-		return ResponseEntity.ok(carroService.findByNome(nome));
-	}
-	
-	@GetMapping("/modelo/{modelo}")
-	public ResponseEntity<List<Carro>> findCarroByModelo(@PathVariable String modelo){
-		return ResponseEntity.ok(carroService.findByModelo(modelo));
-	}
-	
-	@GetMapping("/marca/{marca}")
-	public ResponseEntity<List<Carro>> findCarroByMarca(@PathVariable String marca){
-		return ResponseEntity.ok(carroService.findByMarca(marca));
-	}
-	
-	@GetMapping("/id/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<Carro> findCarroById(@PathVariable Long id){
 		return ResponseEntity.ok(carroService.findById(id));
 	}

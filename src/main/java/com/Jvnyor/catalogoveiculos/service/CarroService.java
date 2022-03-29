@@ -1,8 +1,8 @@
 package com.Jvnyor.catalogoveiculos.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -21,12 +21,17 @@ public class CarroService {
 		this.carroRepository = carroRepository;
 	}
 
-	public List<Carro> listAll(){
-		return carroRepository.findAll();
+	public Page<Carro> listAll(Pageable pageable){
+		return carroRepository.findAll(pageable);
 	}
-	
+
 	public Carro save(CarroDTO carroDTO){
-		return carroRepository.save(Carro.builder().nome(carroDTO.getNome()).marca(carroDTO.getMarca()).modelo(carroDTO.getModelo()).foto(carroDTO.getFoto()).build());
+		return carroRepository.save(Carro.builder()
+				.nome(carroDTO.getNome())
+				.marca(carroDTO.getMarca())
+				.modelo(carroDTO.getModelo())
+				.foto(carroDTO.getFoto())
+				.build());
 	}
 	
 	public Carro findById(Long id){
@@ -35,27 +40,17 @@ public class CarroService {
 	}
 	
 	public Carro replace(Long id,CarroDTO carroDTO){
-		Carro carroSaved = findById(id);
-		carroSaved.setNome(carroDTO.getNome());
-		carroSaved.setMarca(carroDTO.getMarca());
-		carroSaved.setModelo(carroDTO.getModelo());
-		carroSaved.setFoto(carroDTO.getFoto());
-		return carroRepository.save(carroSaved);
+		return carroRepository.save(Carro.builder()
+				.id(id)
+				.nome(carroDTO.getNome())
+				.marca(carroDTO.getMarca())
+				.modelo(carroDTO.getModelo())
+				.foto(carroDTO.getFoto())
+				.build());
 	}
 	
 	public void delete(Long id) {
 		carroRepository.delete(findById(id));
 	}
-	
-	public List<Carro> findByNome(String nome){
-		return carroRepository.findByNome(nome);
-	}
-	
-	public List<Carro> findByMarca(String marca){
-		return carroRepository.findByMarca(marca);
-	}
-	
-	public List<Carro> findByModelo(String modelo){
-		return carroRepository.findByModelo(modelo);
-	}
+
 }
