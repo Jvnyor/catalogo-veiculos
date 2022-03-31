@@ -24,7 +24,19 @@ public class CarroService {
 	public Page<Carro> listAll(Pageable pageable){
 		return carroRepository.findAll(pageable);
 	}
+	
+	public Page<Carro> findByNome(String nome, Pageable pageable) {
+		return carroRepository.findByNome(nome, pageable);
+	}
 
+	public Page<Carro> findByMarca(String marca, Pageable pageable) {
+		return carroRepository.findByMarca(marca, pageable);
+	}
+	
+	public Page<Carro> findByModelo(String modelo, Pageable pageable) {
+		return carroRepository.findByModelo(modelo, pageable);
+	}
+	
 	public Carro save(CarroDTO carroDTO){
 		return carroRepository.save(Carro.builder()
 				.nome(carroDTO.getNome())

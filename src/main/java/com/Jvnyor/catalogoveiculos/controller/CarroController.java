@@ -39,6 +39,21 @@ public class CarroController {
 		return ResponseEntity.ok(carroService.findById(id));
 	}
 	
+	@GetMapping("/nome/{nome}")
+	public ResponseEntity<Page<Carro>> findCarroByNome(@PathVariable String nome, Pageable pageable){
+		return ResponseEntity.ok(carroService.findByNome(nome, pageable));
+	}
+	
+	@GetMapping("/marca/{marca}")
+	public ResponseEntity<Page<Carro>> findCarroByMarca(@PathVariable String marca, Pageable pageable){
+		return ResponseEntity.ok(carroService.findByMarca(marca, pageable));
+	}
+	
+	@GetMapping("/modelo/{modelo}")
+	public ResponseEntity<Page<Carro>> findCarroByModelo(@PathVariable String modelo, Pageable pageable){
+		return ResponseEntity.ok(carroService.findByModelo(modelo, pageable));
+	}
+	
 	@PostMapping
 	public ResponseEntity<Carro> saveCarro(@RequestBody CarroDTO carroDTO){
 		return new ResponseEntity<>(carroService.save(carroDTO),HttpStatus.CREATED);
