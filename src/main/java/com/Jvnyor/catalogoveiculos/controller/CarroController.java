@@ -23,50 +23,50 @@ import com.Jvnyor.catalogoveiculos.service.CarroService;
 public class CarroController {
 
 	private CarroService carroService;
-	
+
 	@Autowired
 	public CarroController(CarroService carroService) {
 		this.carroService = carroService;
 	}
 
 	@GetMapping
-	public ResponseEntity<Page<Carro>> listAllCarros(Pageable pageable){
+	public ResponseEntity<Page<Carro>> listAllCarros(Pageable pageable) {
 		return ResponseEntity.ok(carroService.listAll(pageable));
 	}
-	
+
 	@GetMapping("/{id}")
-	public ResponseEntity<Carro> findCarroById(@PathVariable Long id){
+	public ResponseEntity<Carro> findCarroById(@PathVariable Long id) {
 		return ResponseEntity.ok(carroService.findById(id));
 	}
-	
+
 	@GetMapping("/nome/{nome}")
-	public ResponseEntity<Page<Carro>> findCarroByNome(@PathVariable String nome, Pageable pageable){
+	public ResponseEntity<Page<Carro>> findCarroByNome(@PathVariable String nome, Pageable pageable) {
 		return ResponseEntity.ok(carroService.findByNome(nome, pageable));
 	}
-	
+
 	@GetMapping("/marca/{marca}")
-	public ResponseEntity<Page<Carro>> findCarroByMarca(@PathVariable String marca, Pageable pageable){
+	public ResponseEntity<Page<Carro>> findCarroByMarca(@PathVariable String marca, Pageable pageable) {
 		return ResponseEntity.ok(carroService.findByMarca(marca, pageable));
 	}
-	
+
 	@GetMapping("/modelo/{modelo}")
-	public ResponseEntity<Page<Carro>> findCarroByModelo(@PathVariable String modelo, Pageable pageable){
+	public ResponseEntity<Page<Carro>> findCarroByModelo(@PathVariable String modelo, Pageable pageable) {
 		return ResponseEntity.ok(carroService.findByModelo(modelo, pageable));
 	}
-	
+
 	@PostMapping
-	public ResponseEntity<Carro> saveCarro(@RequestBody CarroDTO carroDTO){
-		return new ResponseEntity<>(carroService.save(carroDTO),HttpStatus.CREATED);
+	public ResponseEntity<Carro> saveCarro(@RequestBody CarroDTO carroDTO) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(carroService.save(carroDTO));
 	}
-	
+
 	@PutMapping("/{id}")
-	public ResponseEntity<Carro> replaceCarro(@PathVariable Long id,@RequestBody CarroDTO carroDTO){
-		return ResponseEntity.ok(carroService.replace(id,carroDTO));
+	public ResponseEntity<Carro> replaceCarro(@PathVariable Long id, @RequestBody CarroDTO carroDTO) {
+		return ResponseEntity.ok(carroService.replace(id, carroDTO));
 	}
-	
+
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> deleteCarro(@PathVariable Long id){
+	public ResponseEntity<Void> deleteCarro(@PathVariable Long id) {
 		carroService.delete(id);
-		return new ResponseEntity<>(HttpStatus.OK);
+		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 }
